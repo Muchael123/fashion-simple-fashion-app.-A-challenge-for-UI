@@ -3,7 +3,7 @@ import { StatusBar } from "expo-status-bar";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { Colors } from "@/constants/Theme";
-import { StyleSheet } from "react-native";
+import { Easing, StyleSheet } from "react-native";
 import Entypo from "@expo/vector-icons/Entypo";
 import SimpleLineIcons from '@expo/vector-icons/SimpleLineIcons';
 
@@ -14,6 +14,7 @@ function TabBarIcon(props: {
   return <Ionicons size={28} {...props} />;
 }
 
+
 export default function _layout() {
   return (
     <SafeAreaProvider>
@@ -21,10 +22,12 @@ export default function _layout() {
         <StatusBar style="auto" />
         <Tabs
           screenOptions={{
+            animation: 'shift',
             tabBarActiveTintColor: Colors.secondary,
             tabBarInactiveTintColor: Colors.grey,
             tabBarHideOnKeyboard: true,
             tabBarLabelPosition: "beside-icon",
+            
             tabBarItemStyle:{
                 borderRadius: 30,
             },
@@ -53,6 +56,14 @@ export default function _layout() {
           <Tabs.Screen
             name="index"
             options={{
+                sceneStyleInterpolator: ({ current }) => ({
+                    sceneStyle: {
+                      opacity: current.progress.interpolate({
+                        inputRange: [-1, 0, 1],
+                        outputRange: [0, 1, 0],
+                      }),
+                    },
+                  }),
               tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
               tabBarLabel: "Home",
             }}
@@ -64,6 +75,7 @@ export default function _layout() {
                 <Entypo name="shop" size={28} color={color} />
               ),
               tabBarLabel: "Shop",
+              
             }}
           />
           <Tabs.Screen
