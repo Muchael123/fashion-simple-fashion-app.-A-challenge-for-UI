@@ -3,14 +3,16 @@ import { StyleSheet, Text, View, TouchableWithoutFeedback, Keyboard } from "reac
 
 import { Colors } from "@/constants/Theme";
 import Search from "@/components/Home/Search";
+import Trending from "@/components/Home/Trending";
 
 
 export default function App() {
+  
   return (
     <TouchableWithoutFeedback onPress={()=> Keyboard.dismiss()}>
     <View style={styles.container}>
       <Search iconType="notifications-outline" />
-      <Text>Open up App.tsx to start working on your app!</Text>
+      <Trending />
     </View>
     </TouchableWithoutFeedback>
   );
@@ -20,7 +22,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.primary,
-    padding: 10
+    padding: 10,
+    gap:20
     
   },
 });
